@@ -27,14 +27,14 @@ export class Item extends Entity {
   color?: string;
 
   @property({
-    type: 'string',
+    type: 'boolean',
   })
-  estado?: string;
+  estado?: boolean;
 
     @property({
     type: 'boolean',
   })
-  favorito?: string;
+  favorito?: boolean;
 
   @property({
     type: 'array',
