@@ -32,9 +32,9 @@ export class Item extends Entity {
   estado?: string;
 
     @property({
-    type: 'string',
+    type: 'boolean',
   })
-  ordenar?: string;
+  favorito?: string;
 
   @property({
     type: 'array',
