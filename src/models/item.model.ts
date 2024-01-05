@@ -31,12 +31,6 @@ export class Item extends Entity {
   })
   estado?: string;
 
-  @property({
-    type: 'string',
-  })
-  ordenar?: string;
-
-
     @property({
     type: 'boolean',
   })
