@@ -31,6 +31,11 @@ export class Item extends Entity {
   })
   estado?: string;
 
+    @property({
+    type: 'string',
+  })
+  ordenar?: string;
+
   @property({
     type: 'array',
     itemType: 'object',
