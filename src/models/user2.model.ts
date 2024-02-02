@@ -34,6 +34,12 @@ export class User2 extends Entity {
   })
   password: string;
 
+  @property({
+    type: 'string',
+    estado: true,
+  })
+  estado?: string;
+
   @hasMany(() => Item)
   productos: Item[];
 

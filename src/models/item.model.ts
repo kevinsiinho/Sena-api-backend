@@ -42,6 +42,12 @@ export class Item extends Entity {
   })
   tarjetas: object[];
 
+  @property({
+    type: 'array',
+    itemType: 'object',
+  })
+  compartir: object[];
+
   @belongsTo(() => User2)
   userId?: string;
 
