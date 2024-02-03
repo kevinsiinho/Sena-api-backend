@@ -17,7 +17,7 @@ import {
   UserServiceBindings,
 } from '@loopback/authentication-jwt';
 import {inject} from '@loopback/core';
-import {Filter, FilterExcludingWhere, repository} from '@loopback/repository';
+import {FilterExcludingWhere, repository} from '@loopback/repository';
 import {
   del,
   get,
