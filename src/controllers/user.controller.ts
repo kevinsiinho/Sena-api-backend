@@ -182,25 +182,6 @@ export class UserController {
   }
 
   @authenticate('jwt')
-  @get('/users')
-  @response(200, {
-    description: 'Array of Item model instances',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'array',
-          items: getModelSchemaRef(User, {includeRelations: true}),
-        },
-      },
-    },
-  })
-  async find(
-    @param.filter(User) filter?: Filter<User>,
-  ): Promise<User[]> {
-    return this.userRepository.find(filter);
-  }
-
-  @authenticate('jwt')
   @put('/user/{id}')
   @response(204, {
     description: 'Item PUT success',
