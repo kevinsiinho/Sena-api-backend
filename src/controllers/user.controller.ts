@@ -17,14 +17,17 @@ import {
   UserServiceBindings,
 } from '@loopback/authentication-jwt';
 import {inject} from '@loopback/core';
-import {FilterExcludingWhere, repository} from '@loopback/repository';
+import {Filter, FilterExcludingWhere, repository} from '@loopback/repository';
 import {
+  del,
   get,
   getModelSchemaRef,
   param,
   post,
+  put,
   requestBody,
-  SchemaObject,
+  response,
+  SchemaObject
 } from '@loopback/rest';
 import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
 import {genSalt, hash} from 'bcryptjs';
@@ -178,4 +181,43 @@ export class UserController {
     return this.userRepository.findById(id,filter);
   }
 
+  @authenticate('jwt')
+  @get('/users')
+  @response(200, {
+    description: 'Array of Item model instances',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(User, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async find(
+    @param.filter(User) filter?: Filter<User>,
+  ): Promise<User[]> {
+    return this.userRepository.find(filter);
+  }
+
+  @authenticate('jwt')
+  @put('/user/{id}')
+  @response(204, {
+    description: 'Item PUT success',
+  })
+  async replaceById(
+    @param.path.string('id') id: string,
+    @requestBody() user: User,
+  ): Promise<void> {
+    await this.userRepository.replaceById(id, user);
+  }
+
+  @authenticate('jwt')
+  @del('/user/{id}')
+  @response(204, {
+    description: 'Item DELETE success',
+  })
+  async deleteById(@param.path.string('id') id: string): Promise<void> {
+    await this.userRepository.deleteById(id);
+  }
 }
