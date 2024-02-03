@@ -17,17 +17,18 @@ import {
   UserServiceBindings,
 } from '@loopback/authentication-jwt';
 import {inject} from '@loopback/core';
-import {FilterExcludingWhere, repository} from '@loopback/repository';
+import {Filter, FilterExcludingWhere, repository, Where} from '@loopback/repository';
 import {
   del,
   get,
+  getFilterSchemaFor,
   getModelSchemaRef,
   param,
   post,
   put,
   requestBody,
   response,
-  SchemaObject
+  SchemaObject,
 } from '@loopback/rest';
 import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
 import {genSalt, hash} from 'bcryptjs';
@@ -200,5 +201,36 @@ export class UserController {
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.userRepository.deleteById(id);
+  }
+
+  @authenticate('jwt')
+  @get('/users/search', {
+    responses: {
+      '200': {
+        description: 'Array of User model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(User, { includeRelations: true }),
+            },
+          },
+        },
+      },
+    },
+  })
+  async search(
+    @param.query.string('query') query: string,
+    @param.query.object('filter', getFilterSchemaFor(User))
+    filter?: Filter<User>,
+  ): Promise<User[]> {
+    const where: Where<User> = {
+      or: [
+        { name: { like: query, options: 'i' } },
+        { email: { like: query, options: 'i' } },
+      ],
+    };
+
+    return this.userRepository.find({ where, ...filter });
   }
 }
