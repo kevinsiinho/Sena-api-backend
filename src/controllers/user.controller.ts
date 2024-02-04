@@ -203,7 +203,6 @@ export class UserController {
     await this.userRepository.deleteById(id);
   }
 
-  @authenticate('jwt')
   @get('/users/search', {
     responses: {
       '200': {
@@ -228,6 +227,7 @@ export class UserController {
       or: [
         { name: { like: query, options: 'i' } },
         { email: { like: query, options: 'i' } },
+        { nickname: { like: query, options: 'i' } },
       ],
     };
 
