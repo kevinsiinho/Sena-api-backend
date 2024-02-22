@@ -189,7 +189,7 @@ export class UserController {
   })
   async replaceById(
     @param.path.string('id') id: string,
-    @requestBody() user: User,
+    @requestBody() user: User2,
   ): Promise<void> {
     await this.userRepository.replaceById(id, user);
   }
