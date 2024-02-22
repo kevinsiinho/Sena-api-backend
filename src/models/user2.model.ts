@@ -30,7 +30,7 @@ export class User2 extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
   })
   password: string;
 
