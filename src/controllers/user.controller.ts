@@ -268,6 +268,7 @@ export class UserController {
     await this.userRepository.userCredentials(user.id).patch(userCredentials);
   }
 
+  @authenticate('jwt')
   @del('user/credenciales/{id}', {
     responses: {
       '204': {
