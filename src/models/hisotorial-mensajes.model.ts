@@ -1,10 +1,11 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
-export class User2 extends Entity {
+export class HisotorialMensajes extends Entity {
   @property({
     type: 'string',
     id: true,
+    generated: true,
   })
   id?: string;
 
@@ -12,53 +13,40 @@ export class User2 extends Entity {
     type: 'string',
     required: true,
   })
-  tipoid: string;
-
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  nombres: string;
+  mensaje_id: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  apellidos: string;
+  emisor: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  tipoCuenta: string;
+  receptor: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  email: string;
+  contenido: string;
 
   @property({
-    type: 'string',
-    required: false,
-  })
-  password: string;
-
-  @property({
-    type: 'array',
-    itemType: 'string',
+    type: 'date',
     required: true,
   })
-  cursos: string[];
+  fecha_envio: string;
 
-  constructor(data?: Partial<User2>) {
+
+  constructor(data?: Partial<HisotorialMensajes>) {
     super(data);
   }
 }
 
-export interface UserRelations {
+export interface HisotorialMensajesRelations {
   // describe navigational properties here
 }
 
-export type UserWithRelations = User2 & UserRelations;
+export type HisotorialMensajesWithRelations = HisotorialMensajes & HisotorialMensajesRelations;

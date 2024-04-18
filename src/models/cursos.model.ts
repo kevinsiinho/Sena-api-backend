@@ -1,10 +1,11 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
-export class User2 extends Entity {
+export class Cursos extends Entity {
   @property({
     type: 'string',
     id: true,
+    generated: true,
   })
   id?: string;
 
@@ -12,53 +13,65 @@ export class User2 extends Entity {
     type: 'string',
     required: true,
   })
-  tipoid: string;
-
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  nombres: string;
+  nombre: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  apellidos: string;
+  descripcion: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  tipoCuenta: string;
+  estado: string;
+
+  @property({
+    type: 'date',
+    required: true,
+  })
+  fechaCreacion: string;
+
+  @property({
+    type: 'date',
+  })
+  fechaActualizacion?: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  email: string;
+  imagen: string;
 
   @property({
     type: 'string',
-    required: false,
+    required: true,
   })
-  password: string;
+  creadorId: string
+
 
   @property({
     type: 'array',
     itemType: 'string',
-    required: true,
+    required: false,
   })
-  cursos: string[];
+  participantes: string[];
 
-  constructor(data?: Partial<User2>) {
+  @property({
+    type: 'array',
+    itemType: 'string',
+    required: false,
+  })
+  secciones: string[];
+
+  constructor(data?: Partial<Cursos>) {
     super(data);
   }
 }
 
-export interface UserRelations {
+export interface CursosRelations {
   // describe navigational properties here
 }
 
-export type UserWithRelations = User2 & UserRelations;
+export type CursosWithRelations = Cursos & CursosRelations;

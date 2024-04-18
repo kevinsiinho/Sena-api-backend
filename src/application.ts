@@ -21,7 +21,7 @@ export {ApplicationConfig};
     MyUserService,
     UserServiceBindings,
   } from '@loopback/authentication-jwt';
-  import {DbDataSource} from './datasources';
+  import {DbProyectoDataSource} from './datasources';
 
 export class Backend extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -58,7 +58,7 @@ export class Backend extends BootMixin(
   this.component(JWTAuthenticationComponent);
  // Bind datasource
   // This is where your User data will be stored.
-  this.dataSource(DbDataSource, UserServiceBindings.DATASOURCE_NAME);
+  this.dataSource(DbProyectoDataSource, UserServiceBindings.DATASOURCE_NAME);
  // Bind the user service to the one in @loopback/authentication-jwt
   this.bind(UserServiceBindings.USER_SERVICE).toClass(MyUserService);
  // ------------- END OF SNIPPET -------------
